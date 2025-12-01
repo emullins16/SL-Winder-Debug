@@ -1,0 +1,119 @@
+\documentclass[12pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{xcolor}
+
+\title{Composites Filament Winder Documentation}
+\author{Original Code: Rylan Andrews, Dalton Reichenbach} 
+\date{Troubleshooting: Evan Mullins}
+
+\begin{document}
+
+\maketitle
+\newpage
+
+\section{Composites Filament Winder Project Overview}
+
+The project contains code and documentation for the filament winder.  
+
+\subsection{Project Structure}
+The project is organized into two main folders:
+
+\begin{enumerate}
+    \item \textbf{generator}: Program used on a desktop/laptop to create a configuration file that is transferred to the Arduino. This is where wind angle, plies, and other settings are configured.
+    \item \textbf{documentation}: Contains documentation for the winder (currently empty).
+\end{enumerate}
+
+\subsection{Python Files in Generator}
+There are seven Python files with varying functionality:
+
+\begin{itemize}
+    \item \texttt{definitions.py} --- Internal definitions for the rest of the code.
+    \item \texttt{gui.py} --- GUI version of \texttt{main.py} using Tkinter; primary interface for G-code generation.
+    \item \texttt{helper.py} --- CLI helpers: printing help, loading schedules, generating G-code, and calculations.
+    \item \texttt{load.py} --- Loads wind schedule data from a JSON file.
+    \item \texttt{main.py} --- Original CLI program (does not set default feed rate).
+    \item \texttt{planner.py} --- Computes internal math to plan the filament winding paths.
+    \item \texttt{winder.py} --- Simulates the winder and generates G-code commands.
+\end{itemize}
+
+Only two files are directly used to output G-code:
+
+\begin{itemize}
+    \item \texttt{gui.py} --- Updated GUI version.
+    \item \texttt{main.py} --- Original CLI version (does not automatically add feed rate line).
+\end{itemize}
+
+\subsection{Key Helper Files}
+
+\paragraph{definitions.py} Defines wind properties, including:
+
+\begin{itemize}
+    \item \textbf{Wind angle} --- Angle between mandrel axis and tow direction.
+    \item \textbf{Number of starts} --- Number of start positions per pattern.
+    \item \textbf{Lock angle} --- Angle through which mandrel turns at the end of each pass.
+\end{itemize}
+
+\paragraph{helper.py} Provides CLI functions:
+
+\begin{itemize}
+    \item \texttt{help} --- Print command menu.
+    \item \texttt{load} --- Load wind schedule.
+    \item \texttt{generate} --- Generate G-code.
+    \item \texttt{calculator} --- Compute valid wind parameters.
+\end{itemize}
+
+\paragraph{load.py} Loads JSON configuration files into the program.
+
+\paragraph{planner.py} Contains all mathematical calculations for winding paths.
+
+\paragraph{winder.py} Simulates the physical winder and outputs G-code.  
+
+\textbf{Axis definitions:}
+
+\begin{itemize}
+    \item X-axis: carriage motion along mandrel (inches)
+    \item Z-axis: mandrel rotation (degrees)
+    \item Y-axis: currently unused
+\end{itemize}
+
+\textbf{Key G-code outputs:}
+
+\begin{itemize}
+    \item \texttt{G20} --- Set units to inches
+    \item \texttt{G01 F100.0} --- Feed rate (missing in \texttt{main.py})
+    \item \texttt{G92 X0 Z0} --- Set axis position
+    \item \texttt{G28} --- Move home (currently not called)
+\end{itemize}
+
+\subsection{Issue: Feed Rate Line Missing in CLI}
+The F-line (\texttt{G01 F…}) is not generated in \texttt{main.py} because:
+
+\begin{itemize}
+    \item \texttt{Winder} constructor sets \texttt{currentFeedRate} to the default.
+    \item \texttt{setFeedRate} only appends a line if feed rate changes or \texttt{force=True}.
+    \item CLI did not call \texttt{setFeedRate} with \texttt{force=True}.
+\end{itemize}
+
+\textbf{Solution:}
+
+\begin{enumerate}
+    \item Update \texttt{Winder.setFeedRate}:
+\begin{verbatim}
+def setFeedRate(self, f, force=False):
+    if force or self.currentFeedRate is None or f != self.currentFeedRate:
+        self.gcode.append(f"G01 F{round(f,3)}")
+        self.currentFeedRate = f
+\end{verbatim}
+    \item Remove feed rate from constructor or set \texttt{currentFeedRate=None}.
+    \item Always call \texttt{setFeedRate(..., force=True)} before generating G-code:
+\begin{verbatim}
+machine = winder.Winder()
+machine.setFeedRate(defaultFeedRate, force=True)
+gcode = planner.planWind(schedule, machine)
+\end{verbatim}
+    \item Optionally call \texttt{machine.moveHome()} to add homing line (\texttt{G28}).
+\end{enumerate}
+
+\end{document}

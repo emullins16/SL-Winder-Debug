@@ -1,0 +1,29 @@
+{
+  "length": 54.0,
+  "defaultFeedRate": 30,
+
+  "mandrel_diameter": 6.0,
+  "mandrel_length": 54.0,
+  "x_limit": 54.0,
+
+  "layers": [
+    {
+      "windType": "hoop",
+      "towWidth": 0.5,
+      "towThickness": 0.2,
+      "terminal": 1
+    },
+    {
+      "windType": "helical",
+      "towWidth": 0.5,
+      "towThickness": 0.2,
+      "windAngle": 30,
+      "numStarts": 1,
+      "skipIndex": 0,
+      "lockAngle": 0,
+      "leadInLength": 5,
+      "leadOutLength": 5,
+      "skipInitialLock": false
+    }
+  ]
+}
