@@ -50,11 +50,14 @@ class HelicalWind(Ply):
         # i.e., a length of tow running straight from one end of the mandrel to the other would have an angle of zero degrees
         self.windAngle = float(windAngle)
 
-        # Each circuit will perform a pass going down the mandrel and coming back. The next pass will not be started immediately adjacent 
-        # to the previous pass, and will instead start at a new start position some angle off from the previous start position.
-        # Once a pass has been completed at each start position, a "pattern" is completed. Subsequent patterns will be completed
-        # to cover the mandrel completely (the number of patterns required is determined by tow width).
-        # This parameter determines the number of start positions
+        '''
+        Each circuit will perform a pass going down the mandrel and coming back. The next pass will not be started immediately adjacent 
+        to the previous pass, and will instead start at a new start position some angle off from the previous start position.
+        Once a pass has been completed at each start position, a "pattern" is completed. Subsequent patterns will be completed
+        to cover the mandrel completely (the number of patterns required is determined by tow width).
+        This parameter determines the number of start positions 
+        '''
+
         self.numStarts = int(numStarts)
 
         # The number of start positions to skip to find the next start position

@@ -18,7 +18,7 @@ class StdoutRedirector:
     def flush(self):
         pass
 
-# ---------------- Main GUI Class ----------------
+# GUI!!!!
 class WinderGUI:
     def __init__(self, root):
         self.root = root
@@ -97,7 +97,7 @@ class WinderGUI:
             self.root.destroy()
             sys.exit(print("Program has closed!"))
 
-    # ---------------- Calculator GUI ----------------
+    # Open Calculator Window
     def open_calculator(self):
         calc_win = tk.Toplevel(self.root)
         calc_win.title("Wind Parameter Calculator")
@@ -117,7 +117,7 @@ class WinderGUI:
         output_text = scrolledtext.ScrolledText(calc_win, width=40, height=10)
         output_text.grid(row=4, column=0, columnspan=2, pady=5, sticky="nsew")
 
-        # Make calculator window scalable
+        # Scaling 
         calc_win.columnconfigure(0, weight=1)
         calc_win.columnconfigure(1, weight=1)
         calc_win.rowconfigure(4, weight=1)
@@ -146,7 +146,7 @@ class WinderGUI:
 
         tk.Button(calc_win, text="Compute", command=compute).grid(row=3, column=0, columnspan=2, sticky="ew", pady=2)
 
-# ---------------- Run GUI ----------------
+# Run
 if __name__ == "__main__":
     root = tk.Tk()
     app = WinderGUI(root)
