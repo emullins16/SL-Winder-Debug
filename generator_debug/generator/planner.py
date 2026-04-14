@@ -1,7 +1,5 @@
 # Computes required mandrel and carriage positions to execute winds
-
 import math
-
 import definitions
 import winder
 

@@ -7,7 +7,7 @@ import helper
 import winder
 import planner
 
-# ---------------- Stdout redirector ----------------
+# Stdout redirector 
 class StdoutRedirector:
     def __init__(self, text_widget):
         self.text_widget = text_widget
