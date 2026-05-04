@@ -1,10 +1,10 @@
 {
   "length": 54.0,
-  "defaultFeedRate": 30,
+  "defaultFeedRate": 3,
 
   "mandrel_diameter": 6.0,
-  "mandrel_length": 10.0,
-  "x_limit": 11.0,
+  "mandrel_length": 8.0,
+  "x_limit": 10.0,
 
   "layers": [
     {

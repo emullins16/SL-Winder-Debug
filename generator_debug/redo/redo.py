@@ -73,7 +73,7 @@ def solve_helical(machine, config, layer):
     starts = layer.get("numStarts", 1)
     passes = layer.get("passes", 10)  # <-- this now actually matters
 
-    steps_per_pass = 300  # higher resolution = real composite winding
+    steps_per_pass = 2  # higher resolution = real composite winding
 
     total_steps = passes * steps_per_pass
 
