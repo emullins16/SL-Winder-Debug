@@ -1,0 +1,24 @@
+{
+    "layers": [
+        {
+            "windType": "hoop", 
+            "towWidth": 1.0,
+            "towThickness": 0.05,
+            "terminal": false
+        },
+        {
+            "windType": "helical",
+            "towWidth": 0.375,
+            "towThickness": 0.1,
+            "windAngle": 30,
+            "numStarts": 22,
+            "skipIndex": 1,
+            "lockAngle": 360,
+            "leadInLength": 0,
+            "leadOutLength": 0,
+            "skipInitialLock": false
+        }
+    ],
+    "length": 18,
+    "defaultFeedRate": 9000
+}

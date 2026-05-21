@@ -1,0 +1,56 @@
+{
+  "config": {
+    "length": 54.0,
+    "defaultFeedRate": 3,
+    "mandrel_diameter": 6.0,
+    "mandrel_length": 8.0,
+    "x_limit": 10.0,
+    "layers": [
+      {
+        "windType": "helical",
+        "towWidth": 0.5,
+        "towThickness": 0.2,
+        "windAngle": 30,
+        "numStarts": 1,
+        "skipIndex": 0,
+        "lockAngle": 0,
+        "leadInLength": 5,
+        "leadOutLength": 5,
+        "skipInitialLock": false
+      }
+    ]
+  },
+  "machine_state": {
+    "length": 8.0,
+    "diameter": 6.0,
+    "x_limit": 10.0,
+    "feedrate": 3
+  },
+  "gcode": [
+    "G20",
+    "G90",
+    "(=== AIRFRAME CONTINUOUS HELICAL WIND ===)",
+    "(Starts=1, Passes=10)",
+    "(START 1/1)",
+    "G01 X4.0 Z2.3094 F3",
+    "G01 X8.0 Z4.6188 F3",
+    "G01 X4.0 Z6.9282 F3",
+    "G01 X0 Z9.2376 F3",
+    "G01 X4.0 Z11.547 F3",
+    "G01 X8.0 Z13.8564 F3",
+    "G01 X4.0 Z16.1658 F3",
+    "G01 X0 Z18.4752 F3",
+    "G01 X4.0 Z20.7846 F3",
+    "G01 X8.0 Z23.094 F3",
+    "G01 X4.0 Z25.4034 F3",
+    "G01 X0 Z27.7128 F3",
+    "G01 X4.0 Z30.0222 F3",
+    "G01 X8.0 Z32.3316 F3",
+    "G01 X4.0 Z34.641 F3",
+    "G01 X0 Z36.9504 F3",
+    "G01 X4.0 Z39.2598 F3",
+    "G01 X8.0 Z41.5692 F3",
+    "G01 X4.0 Z43.8786 F3",
+    "G01 X0 Z46.188 F3"
+  ]
+}
